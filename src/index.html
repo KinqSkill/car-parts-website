@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر كينق سكيل لقطع السيارات - طلب مسبق</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Cairo", sans-serif; }
+        body { background-color: #000000; color: #ffffff; overflow-x: hidden; }
+        header { background-color: #0d0d0d; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ff0000; }
+        .logo { font-size: 24px; font-weight: bold; color: #ff0000; }
+        .social-top a { color: #ffffff; margin-right: 15px; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        .social-top a:hover { color: #ff0000; }
+        .hero-container { display: flex; min-height: 500px; align-items: center; padding: 40px 5%; background: #000000; }
+        .hero-text { flex: 1; padding-left: 20px; z-index: 10; }
+        .hero-text h1 { font-size: 46px; color: #ff0000; margin-bottom: 20px; line-height: 1.4; font-weight: 700; }
+        .hero-text p { font-size: 18px; color: #ffffff; margin-bottom: 30px; }
+        .cta-btn { background-color: #ff0000; color: #ffffff; padding: 12px 30px; border: none; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; text-decoration: none; transition: background 0.3s, transform 0.3s; display: inline-block; }
+        .cta-btn:hover { background-color: #cc0000; transform: scale(1.05); }
+        .hero-slider { flex: 1; position: relative; width: 100%; height: 350px; overflow: hidden; border-radius: 10px; border: 2px solid #ff0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); }
+        .slides { width: 100%; height: 100%; position: relative; }
+        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; align-items: center; justify-content: center; }
+        .slide.active { opacity: 1; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+        .slider-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 15; }
+        .dot { width: 12px; height: 12px; background-color: rgba(255,255,255,0.4); border-radius: 50%; cursor: pointer; }
+        .dot.active { background-color: #ff0000; }
+        .products-section { padding: 60px 5%; text-align: center; background-color: #000000; }
+        .products-section h2 { font-size: 32px; margin-bottom: 40px; color: #ff0000; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .product-card { background-color: #0d0d0d; border: 1px solid #333333; border-radius: 8px; padding: 20px; transition: all 0.3s; }
+        .product-card:hover { transform: translateY(-5px); border-color: #ff0000; box-shadow: 0 0 10px rgba(255, 0, 0, 0.3); }
+        .product-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; margin-bottom: 15px; }
+        .product-card h3 { font-size: 20px; margin-bottom: 10px; color: #ffffff; }
+        .price-tag { color: #ff0000; font-weight: bold; margin-bottom: 15px; display: block; }
+        .add-to-cart-btn { background-color: #000000; color: #ffffff; border: 1px solid #ff0000; padding: 10px 15px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; transition: all 0.3s; }
+        .add-to-cart-btn:hover { background-color: #ff0000; color: #ffffff; }
+        .form-section { background-color: #0d0d0d; padding: 50px 5%; margin: 40px 5%; border-radius: 10px; border: 1px solid #ff0000; }
+        .form-section h2 { text-align: center; margin-bottom: 30px; color: #ff0000; }
+        .cart-summary { background-color: #000000; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-right: 4px solid #ff0000; color: #ffffff; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #ffffff; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; background-color: #1a1a1a; border: 1px solid #333333; color: #ffffff; border-radius: 5px; }
+        .form-group input:focus, .form-group textarea:focus { border-color: #ff0000; outline: none; }
+        .submit-whatsapp-btn { background-color: #ff0000; color: #ffffff; padding: 15px; border: none; width: 100%; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+        .submit-whatsapp-btn:hover { background-color: #cc0000; }
+        footer { background-color: #0d0d0d; padding: 40px 5%; text-align: center; border-top: 1px solid #ff0000; margin-top: 60px; }
+        .footer-links a { color: #ffffff; text-decoration: none; margin: 0 15px; font-size: 14px; }
+        .footer-links a:hover { color: #ff0000; }
+        .copyright { color: #777777; font-size: 14px; margin-top: 20px; }
+        @media (max-width: 768px) { header { flex-direction: column; gap: 10px; } .hero-container { flex-direction: column; text-align: center; padding: 20px 5%; } .hero-text { padding-left: 0; margin-bottom: 30px; } .hero-text h1 { font-size: 32px; } .hero-slider { height: 220px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🏁 كينق سكيل لقطع السيارات</div>
+        <div class="social-top">
+            <a href="https://instagram.com" target="_blank">إنستغرام 📸</a>
+            <a href="https://tiktok.com" target="_blank">تيك توك 🎵</a>
+        </div>
+    </header>
+    <section class="hero-container">
+        <div class="hero-text">
+            <h1>هندسة أدق.<br>اختيار أوثق.</h1>
+            <p>اكتشف أقوى قطع الغيار الترند لسيارتك. حدد طلبك، أرسله عبر الواتساب، ودعنا نتولى التوفير والشحن السريع بناءً على طلبك المسبق.</p>
+            <a href="#products" class="cta-btn">استكشف الكتالوج 🚗</a>
+        </div>
+        <div class="hero-slider">
+            <div class="slides" id="slider">
+                <div class="slide active"><img src="https://unsplash.com" alt="BMW"></div>
+                <div class="slide"><img src="https://unsplash.com" alt="Mercedes"></div>
+                <div class="slide"><img src="https://unsplash.com" alt="Audi"></div>
+            </div>
+            <div class="slider-dots" id="dotsContainer">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </section>
+    <section class="products-section" id="products">
+        <h2>🔥 الأكثر طلباً وترند هذا الأسبوع</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://unsplash.com" alt="ممتص">
+                <h3>ممتص صدمات رياضي (تعديل)</h3>
+                <span class="price-tag">السعر: تواصل معنا لتحديد التوافق</span>
+                <button class="add-to-cart-btn" onclick="addToRequest('ممتص صدمات رياضي')">🔍 إضافة لطلب الاستفسار</button>
+            </div>
+            <div class="product-card">
+                <img src="https://unsplash.com" alt="أضوية">
+                <h3>أضوية أمامية فخمة LED</h3>
+                <span class="price-tag">السعر: تواصل معنا لتحديد التوافق</span>
+                <button class="add-to-cart-btn" onclick="addToRequest('أضوية أمامية فخمة LED')">🔍 إضافة لطلب الاستفسار</button>
+            </div>
+            <div class="product-card">
+                <img src="https://unsplash.com" alt="فلتر">
+                <h3>فلتر هواء رياضي عالي الأداء</h3>
+                <span class="price-tag">السعر: تواصل معنا لتحديد التوافق</span>
+                <button class="add-to-cart-btn" onclick="addToRequest('فلتر هواء رياضي عالي الأداء')">🔍 إضافة لطلب الاستفسار</button>
+            </div>
+        </div>
+    </section>
+    <section class="form-section">
+        <h2>📋 تجهيز رسالة الاستفسار الموحدة للواتساب</h2>
+        <div class="cart-summary">
+            <strong>القطع المحددة للاستفسار:</strong>
+            <p id="selectedPartsText">لم تقم باختيار قطع بعد.</p>
+        </div>
+        <form id="inquiryForm" onsubmit="sendToWhatsApp(event)">
+            <div class="form-group">
+                <label>اسمك الكريم:</label>
+                <input type="text" id="clientName" required placeholder="مثال: أحمد محمد">
+            </div>
+            <div class="form-group">
+                <label>نوع وموديل السيارة وسنة الصنع:</label>
+                <input type="text" id="carModel" required placeholder="مثال: BMW 2023">
+            </div>
+            <div class="form-group">
+                <label>رقم الشاصي (VIN) أو تفاصيل إضافية:</label>
+                <input type="text" id="vinNumber" placeholder="رقم الشاصي (اختياري للكماليات)">
+            </div>
+            <div class="form-group">
+                <label>ملاحظات أخرى تبحث عنها:</label>
+                <textarea id="notes" rows="3" placeholder="أي تفاصيل أخرى تريدها..."></textarea>
+            </div>
+            <button type="submit" class="submit-whatsapp-btn">📱 إرسال الطلب المجمع عبر واتساب مباشرة</button>
+        </form>
+    </section>
+    <footer>
+        <div class="footer-links">
