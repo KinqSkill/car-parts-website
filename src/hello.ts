@@ -3,138 +3,129 @@ import express = require('express');
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// الواجهة الفنية الفخمة مصممة بلغة HTML/CSS/JS ومحفوظة بنظام تشفير آمن 100% لمنع أخطاء البناء
-const webCode = `
-PCFET0NUWVBFIEFNREw+CjxodG1sIGxhbmc9ImFyIiBkaXI9InJ0bCI+CjxoZWFkPgogICAg
-PG1ldGEgY2hhcnNldD0iVVRGLTgiPgogICAgPG1ldGEgY2hhcnNldD0iVVRGLTgiPgogICAg
-PG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5p
-dGlhbC1zY2FsZT0xLjAiPgogICAgPHRpdGxlPtmF2KrYrNixINmD2YrZhtiCINmF2K3Yp9mI
-2YTYp9iqINmE2YLYtNi5INin2YTYs9mK2KfYp9ix2KfYqp励PC90aXRsZT4KICAgIDxsaW5r
-IHJlbD0icHJlY29ubmVjdCIgaHJlZj0iaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbSI+
-CiAg  PGxpbmsgcmVsPSJwcmVjb25uZWN0IiBocmVmPSJodHRwczovL2ZvbnRzLmdzdGF0aWMu
-Y29tIiBjcm9zc29yaWdpbj4KICAgIDxsaW5rIGhyZWY9Imh0dHBzOi8vZm9udHMuZ29vZ2xl
-YXBpcy5jb20vY3NzMj9mYW1pbHk9Q2Fpcm86d2dodEAzMDA7NDAwOzcwMCZkaXNwbGF5PXN3
-YXAiIHJlbD0ic3R5bGVzaGVldCI+CiAgICA8c3R5bGU+CiAgICAgICAgKiB7IGJveC1zaXpp
-bmc6IGJvcmRlci1ib3g7IG1hcmdpbjogMDsgcGFkZGluZzogMDsgZm9udC1mYW1pbHk6ICdD
-YWlybycsIHNhbnMtc2VyaWY7IH0KICAgICAgICBib2R5IHsgYmFja2dyb3VuZC1jb2xvcjog
-IzAwMDAwMDsgY29sb3I6ICNmZmZmZmY7IG92ZXJmbG93LXg6IGhpZGRlbjsgfQogICAgICAg
-IGhlYWRlciB7IGJhY2tncm91bmQtY29sb3I6ICMwZDBkMGQ7IHBhZGRpbmc6IDE1cHggNSU7
-IGRpc3BsYXk6IGZsZXg7IGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjsgYWxpZ24t
-aXRlbXM6IGNlbnRlcjsgYm9yZGVyLWJvdHRvbTogMnB4IHNvbGlkICNmZjAwMDA7IH0KICAg
-ICAgICAubG9nbyB7IGZvbnQtc2l6ZTogMjRweDsgZm9udC13ZWlnaHQ6IGJvbGQ7IGNvbG9y
-OiAjZmYwMDAwOyB9CiAgICAgICAgLnNvY2lhbC10b3AgYSB7IGNvbG9yOiAjZmZmZmZmOyBt
-YXJnaW4tcmlnaHQ6IDE1cHg7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsgZm9udC1zaXplOiAx
-NHB4OyB0cmFuc2l0aW9uOiBjb2xvcjogMC4zczsgfQogICAgICAgIC5zb2NpYWwtdG9wIGE6
-aG92ZXIgeyBjb2xvcjogI2ZmMDAwMDsgfQogICAgICAgIC5oZXJvLWNvbnRhaW5lciB7IGRp
-c3BsYXk6IGZsZXg7IG1pbi1oZWlnaHQ6IDUwMHB4OyBhbGlnbi1pdGVtczogY2VudGVyOyBw
-YWRkaW5nOiA0MHB4IDUlOyBiYWNrZ3JvdW5kOiAjMDAwMDAwOyB9CiAgICAgICAgLmhlcm8t
-dGV4dCB7IGZsZXg6IDE7IHBhZGRpbmctbGVmdDogMjBweDsgemluZGV4OiAxMDsgfQogICAg
-ICAgIC5oZXJvLXRleHQgaDEgeyBmb250LXNpemU6IDQ2cHg7IGNvbG9yOiAjZmYwMDAwOyBt
-YXJnaW4tYm90dG9tOiAyMHB4OyBsaW5lLWhlaWdodDogMS40OyBmb250LXdlaWdodDogNzAw
-OyB9CiAgICAgICAgLmhlcm8tdGV4dCBwIHsgZm9udC1zaXplOiAxOHB4OyBjb2xvcjogI2Zm
-ZmZmZjsgbWFyZ2luLWJvdHRvbTogMzBweDsgfQogICAgICAgIC5jdGEtYm4geyBiYWNrZ3Jv
-dW5kLWNvbG9yOiAjZmYwMDAwOyBjb2xvcjogI2ZmZmZmZjsgcGFkZGluZzogMTJweCAzMHB4
-OyYmIGJvcmRlci1yYWRpdXM6IDVweDsgZm9udC1zaXplOiAxOHB4OyBmb250LXdlaWdodDog
-Ym9sZDsgY3Vyc29yOiBwb2ludGVyOyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IHRyYW5zaXRp
-b246IGFsbCAwLjNzOyBkaXNwbGF5OiBpbmxpbmUtYm9jaysgfQogICAgICAgIC5jdGEtYm46
-aG92ZXIgeyBiYWNrZ3JvdW5kLWNvbG9yOiAjY2MwMDAwOyB0cmFuc2Zvcm06IHNjYWxlKDEu
-MDUpOyB9CiAgICAgICAgLmhlcm8tc2xpZGVyIHsgZmxleDogMTsgcG9zaXRpb246IHJlbGF0
-aXZlOyB3aWR0aDogMTAwJTsgaGVpZ2h0OiAzNTBweDsgb3ZlcmZsb3c6IGhpZGRlbjsgYm9y
-ZGVyLXJhZGl1czogMTBweDsgYm9yZGVyOiAycHggc29saWQgI2ZmMDAwMDsgYm94LXNoYWRv
-dzogMCAwIDE1cHggcmdiYSgyNTUsIDAsIDAsIDAuMik7IH0KICAgICAgICAuc2xpZGVzIHsg
-d2lkdGg6IDEwMCU7IGhlaWdodDogMTAwJTsgcG9zaXRpb246IHJlbGF0aXZlOyB9CiAgICAg
-ICAgLnNsaWRlIHsgcG9zaXRpb246IGFic29sdXRlOyB3aWR0aDogMTAwJTsgaGVpZ2h0OiAx
-MDAlOyBvcGFjaXR5OiAwOyB0cmFuc2l0aW9uOiBvcGFjaXR5IDFzIGVhc2UtaW4tb3V0OyBk
-aXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IGNl
-bnRlcjsgfQogICAgICAgIC5zbGlkZS5hY3RpdmUgeyBvcGFjaXR5OiAxOyB9CiAgICAgICAg
-LnNsaWRlIGltZyB7IHdpZHRoOiAxMDAlOyBoZWlnaHQ6IDEwMCU7IG9iamVjdC1maXQ6IGNv
-dmVyOyB9CiAgICAgICAgLnNsaWRlci1kb3RzIHsgcG9zaXRpb246IGFic29sdXRlOyBib3R0
-b206IDE1cHg7IGxlZnQ6IDUwJTsgdHJhbnNmb3JtOiB0cmFuc2xhdGVYKC01MCUpOyBkaXNw
-bGF5OiBmbGV4OyBnYXA6IDhweDsgemluZGV4OiAxNTsgfQogICAgICAgIC5kb3QgeyB3aWR0
-aDogMTJweDsgaGVpZ2h0OiAxMnB4OyBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwyNTUs
-MjU1LDAuNCk7IGJvcmRlci1yYWRpdXM6IDUwJTsgY3Vyc29yOiBwb2ludGVyOyB9CiAgICAg
-ICAgLmRvdC5hY3RpdmUgeyBiYWNrZ3JvdW5kLWNvbG9yOiAjZmYwMDAwOyB9CiAgICAgICAg
-LnByb2R1Y3RzLXNlY3Rpb24geyBwYWRkaW5nOiA2MHB4IDUlOyB0ZXh0LWFsaWduOiBjZW50
-ZXI7IH0KICAgICAgICAucHJvZHVjdHMtc2VjdGlvbiBoMiB7IGZvbnQtc2l6ZTogMzJweDsg
-bWFyZ2luLWJvdHRvbTogNDBweDsgY29sb3I6ICNmZjAwMDA7IH0KICAgICAgICAucHJvZHVj
-dHMtZ3JpZCB7IGRpc3BsYXk6IGdyaWQ7IGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0
-KGF1dG8tZml0LCBtaW5tYXgoMjgwcHgsIDFmcikpOyBnYXA6IDMwcHg7IH0KICAgICAgICAu
-cHJvZHVjdC1jYXJkIHsgYmFja2dyb3VuZC1jb2xvcjogIzBkMGQwZDsgYm9yZGVyOiAxcHgg
-c29saWQgIzMzMzMzMzsgYm9yZGVyLXJhZGl1czogOHB4OyBwYWRkaW5nOiAyMHB4OyB0cmFu
-c2l0aW9uOiBhbGwgMC4zczsgfQogICAgICAgIC5wcm9kdWN0LWNhcmQ6aG92ZXIgeyB0cmFu
-c2Zvcm06IHRyYW5zbGF0ZVkoLTVweCk7IGJvcmRlci1jb2xvcjogI2ZmMDAwMDsgYm94LXNo
-YWRvdzogMCAwIDEwcHggcmdiYSgyNTUsIDAsIDAsIDAuMyk7IH0KICAgICAgICAucHJvZHVj
-dC1jYXJkIGltZyB7IHdpZHRoOiAxMDAlOyBoZWlnaHQ6IDE4MHB4OyBvYmplY3QtZml0OiBj
-b3ZlcjsgYm9yZGVyLXJhZGl1czogNXB4OyBtYXJnaW4tYm90dG9tOiAxNXB4OyB9CiAgICAg
-ICAgLnByb2R1Y3QtY2FyZCBoMyB7IGZvbnQtc2l6ZTogMjBweDsgbWFyZ2luLWJvdHRvbTog
-MTBweDsgY29sb3I6ICNmZmZmZmY7IH0KICAgICAgICAucHJpY2UtdGFnIHsgY29sb3I6ICNm
-ZjAwMDA7IGZvbnQtd2VpZ2h0OiBib2xkOyBtYXJnaW4tYm90dG9tOiAxNXB4OyBkaXNwbGF5
-OiBibG9jazsgfQogICAgICAgIC5hZGQtdG8tY2FydC1ibiB7IGJhY2tncm91bmQtY29sb3I6
-ICMwMDAwMDA7IGNvbG9yOiAjZmZmZmZmOyBib3JkZXI6IDFweCBzb2xpZCAjZmYwMDAwOyBw
-YWRkaW5nOiAxMHB4IDE1cHg7IGJvcmRlci1yYWRpdXM6IDRweDsgY3Vyc29yOiBwb2ludGVy
-OyB3aWR0aDogMTAwJTsgZm9udC13ZWlnaHQ6IGJvbGQ7IHRyYW5zaXRpb246IGFsbCAwLjNz
-OyB9CiAgICAgICAgLmFkZC10by1jYXJ0LWJuOmhvdmVyIHsgYmFja2dyb3VuZC1jb2xvcjog
-I2ZmMDAwMDsgY29sb3I6ICNmZmZmZmY7IH0KICAgICAgICAuZm9ybS1zZWN0aW9uIHsgYmFj
-a2dyb3VuZC1jb2xvcjogIzBkMGQwZDsgcGFkZGluZzogNTBweCA1JTsgbWFyZ2luOiA0MHB4
-IDUlOyBib3JkZXItcmFkaXVzOiAxMHB4OyYmIGJvcmRlcjogMXB4IHNvbGlkICNmZjAwMDA7
-IH0KICAgICAgICAuZm9ybS1zZWN0aW9uIGgyIHsgdGV4dC1hbGlnbjogY2VudGVyOyBtYXJn
-aW4tYm90dG9tOiAzMHB4OyBjb2xvcjogI2ZmMDAwMDsgfQogICAgICAgIC5jYXJ0LXN1bW1h
-cnkgeyBiYWNrZ3JvdW5kLWNvbG9yOiAjMDAwMDAwOyBwYWRkaW5nOiAxNXB4OyYmIGJvcmRl
-ci1yYWRpdXM6IDVweDsgbWFyZ2luLWJvdHRvbTogMjBweDsgYm9yZGVyLXJpZ2h0OiA0cHgg
-c29saWQgI2ZmMDAwMDsgY29sb3I6ICNmZmZmZmY7IH0KICAgICAgICAuZm9ybS1ncm91cCB7
-IG1hcmdpbi1ib3R0b2t6OiAyMHB4OyB9CiAgICAgICAgLmZvcm0tZ3JvdXAgbGFiZWwgeyBk
-aXNwbGF5OiBibG9jazsgbWFyZ2luLWJvdHRvbTogOHB4OyBjb2xvcjogI2ZmZmZmZjsgfQog
-ICAgICAgIC5mb3JtLWdyb3VwIGlucHV0LCAuZm9ybS1ncm91cCB0ZXh0YXJlIHsgd2lkdGg6
-IDEwMCU7IHBhZGRpbmc6IDEycHg7IGJhY2tncm91bmQtY29sb3I6ICMxYTFhMWE7IGJvcmRl
-cjogMXB4IHNvbGlkICMzMzMzMzM7IGNvbG9yOiAjZmZmZmZmOyYmIGJvcmRlci1yYWRpdXM6
-IDVweDsgeyBmb3JtLWdyb3VwIGlucHV0OmZvY3VzLCAuZm9ybS1ncm91cCB0ZXh0YXJlOmZv
-Y3VzIHsgYm9yZGVyLWNvbG9yOiAjZmYwMDAwOyBvdXRsaW5lOiBub25lOyB9CiAgICAgICAg
-LnN1Ym1pdC13aGF0c2FwcC1ibiB7IGJhY2tncm91bmQtY29sb3I6ICNmZjAwMDA7IGNvbG9y
-OiAjZmZmZmZmOyBwYWRkaW5nOiAxNXB4OyBib3JkZXI6IG5vbmU7IHdpZHRoOiAxMDAlOyBi
-b3JkZXItcmFkaXVzOiA1cHg7IGZvbnQtc2l6ZTogMThweDsgZm9udC13ZWlnaHQ6IGJvbGQ7
-IGN1cnNvcjogcG9pbnRlcjsgdHJhbnNpdGlvbjogYmFja2dyb3VuZCAwLjNzOyB9CiAgICAg
-ICAgLnN1Ym1pdC13aGF0c2FwcC1ibjpob3ZlciB7IGJhY2tncm91bmQtY29sb3I6ICNjYzAw
-MDA7IH0KICAgICAgICBmb290ZXIgeyBiYWNrZ3JvdW5kLWNvbG9yOiAjMGQwZDBkOyBwYWRk
-aW5nOiA0MHB4IDUlOyB0ZXh0LWFsaWduOiBjZW50ZXI7IGJvcmRlci10b3A6IDFweCBzb2xp
-ZCAjZmYwMDAwOyBtYXJnaW4tdG9wOiA2MHB4OyB9CiAgICAgICAgLmZvb3Rlci1saW5rcyBh
-IHsgY29sb3I6ICNmZmZmZmY7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsgbWFyZ2luOiAwIDE1
-cHg7IGZvbnQtc2l6ZTogMTRweDsgeyAuZm9vdGVyLWxpbmtzYTpob3ZlciB7IGNvbG9yOiAj
-ZmYwMDAwOyB9CiAgICAgICAgLmNvcHlyaWdodCB7IGNvbG9yOiAjNzc3Nzc3OyBmb290LXNp
-emU6IDE0cHg7IG1hcmdpbi10b3A6IDIwcHg7IH0KICAgICAgICBAbWVkaWEgKG1heC13aWR0
-aDogNzY4cHgpIHsKICAgICAgICAgICAgaGVhZGVyIHsgZmxleC1kaXJlY3Rpb246IGNvbHVt
-bjsgZ2FwOiAxMHB4OyB9CiAgICAgICAgICAgIC5oZXJvLWNvbnRhaW5lciB7IGZsZXgtZGly
-ZWN0aW9uOiBjb2x1bW47IHRleHQtYWxpZ246IGNlbnRlcjsgcGFkZGluZzogMjBweCA1JTsg
-fQogICAgICAgICAgICAuaGVyby10ZXh0IHsgcGFkZGluZy1sZWZ0OiAwOyBtYXJnaW4tYm90
-dG9tOiAzMHB4OyB9CiAgICAgICAgICAgIC5oZXJvLXRleHQgaDEgeyBmb250LXNpemU6IDMy
-cHg7IH0KICAgICAgICAgICAgLmhlcm8tc2xpZGVyIHsgaGVpZ2h0OiAyMjBweDsgfQogICAg
-ICAgIH0KICAgIDwvc3R5bGU+CjwvaGVhZD4KPGJvZHk+CgogICAgPGhlYWRlcj4KICAgICAg
-ICA8ZGl2IGNsYXNzPSJsb2dvIj7wn46BIGtpbmdTa2lsbCBmb3IgQ2FyIFBhcnRzPC9kaXY+
-CiAgICAgICAgPGRpdiBjbGFzcz0ic29jaWFsLXRvcCI+CiAgICAgICAgICAgIDxhIGhyZWY9
-Imh0dHBzOi8vaW5zdGFncmFtLmNvbS9LaW5xU2tpbGwiIHRhcmdldD0iX2JsYW5rIj7Ypdim
-2m5zdGFncmFtIPCfk7Y8L2E+CiAgICAgICAgICAgIDxhIGhyZWY9Imh0dHBzOi8vdGlrdG9r
-LmNvbS9LaW5xU2tpbGwiIHRhcmdldD0iX2JsYW5rIj7YqtmK2m0gVGlrdG9rIPCfkr08L2E+
-CiAgICAgICAgPC9kaXY+CiAgICA8L2hlYWRlcj4KCiAgICA8c2VjdGlvbiBjbGFzcz0iaGVy
-by1jb250YWWpbmVyIj4KICAgICAgICA8ZGl2IGNsYXNzPSJoZXJvLXRleHQiPgogICAgICAg
-ICAgICA8aDE+2YfYp9mG2K/Ys9mIINij2KfZgi48YnI+2inYrtiq2YrYp9ixINij2YjYp9mC
-LjwvaDE+CiAgICAgICAgICAgIDxwPtin2Y crappyDYp9mC2YjZiSDZgti32LMg2KfZhNi62YrY
-p9ixINin2YTYqtix2YbaZCDZhNiz2YrYp9ix2KrZgy4g2K3Yr9ivINi32YTYqNZrINij2YFF
-2YTZhyDZiNin2KrYs9mF2Kfa crappyDYp9mE2KrZiNmB2YrYpSBvbmxpbmUg2KjYr9mI2YYg
-2KPZiiDYp9iu2LfYp9ihLjwvcD4KICAgICAgICAgICAgPGEgaHJlZj0iI3Byb2R1Y3RzIiBj
-bGFzcz0iY3RhLWJuIj7Yp9iz2KrZg9mF2YEg2KfZhG9ubGluZSDwn46BPC9hPgogICAgICAg
-IDwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9Imhlcm8tc2xpZGVyIj4KICAgICAgICAgICAg
-PGRpdiBjbGFzcz0ic2xpZGVzIiBpZD0ic2xpZGVyIj4KICAgICAgICAgICAgICAgIDxkaXYg
-Y2xhc3M9InNsaWRlIGFjdGl2ZSI+PGltZyBzcmM9Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNo
-LmNvbS9waG90by0xNTU1MjE1Njk1LTMwMDQ5ODBhdDU0ZT93PTgwMCZhdXRvPWZvcm1hdCZm
-aXQ9Y292ZXIiIGFsdD0iQk1XIj48L2Rpdj4KICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9
-InNsaWRlIj48aW1nIHNyYz0iaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE2
-MTg4NDM0NzkzMTMtNDBmOGFmYjRiNGQ4P3c9ODAwJmF1dG89Zm9ybWF0JmZpdD0Y292ZXIi
-IGFsdD0iTWVyY2VkZXMiPjwvZGl2PgogICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0ic2xp
-ZGVlIj48aW1nIHNyYz0iaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE2MDM1
-ODQxNzM4NzAtN2YyM2ZkYWUxYjdhP3c9ODAwJmF1dG89Zm9ybWF0JmZpdD0Y292ZXIiIGFs
-dD0iQXVkaSI+PC9kaXY+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8ZGl2IGNs
-YXNzPSJzbGlkZXItZG90cyIgaWQ9ImRvdHNDb250YWluZXIiPgogICAgICAgICAgICAgICAg
-PGRpdiBjbGFzcz0iZG90IGFjdGl2ZSI+L2Rpdj4KICAgICAgICAgICAgICAgIDxkaXYgY2xh
-c3M9ImRvdCI+PC9kaXY+CiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPSJkb3QiPjwvZGl2
-PgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgIDwvc2VjdGlvbj4KCiAg
-ICA8c2VjdGlvbiBjbGFzcz0icHJvZHVjdHMtc2VjdGlvbiIgaWQ9InByb2R1Y3RzIj4KICAg
-ICAgICA8aDI+8f+UpSBBbHRlbmRvcmYgQ2FyIFBhcnRzIFRyZW5kczwvaDI+CiAgICAgICAg
+// تجميع كود واجهة المتجر عبر مصفوفة نصية آمنة وخالية تماماً من علامات الاقتباس المائلة لمنع الخطأ البرمجي
+const pageCode: string[] = [
+  '<!DOCTYPE html>',
+  '<html lang="ar" dir="rtl">',
+  '<head>',
+  '    <meta charset="UTF-8">',
+  '    <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+  '    <title>متجر كينق سكيل لقطع السيارات - طلب مسبق</title>',
+  '    <link rel="preconnect" href="https://googleapis.com">',
+  '    <link rel="preconnect" href="https://gstatic.com" crossorigin>',
+  '    <link href="https://googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">',
+  '    <style>',
+  '        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Cairo", sans-serif; }',
+  '        body { background-color: #000000; color: #ffffff; overflow-x: hidden; }',
+  '        header { background-color: #0d0d0d; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ff0000; }',
+  '        .logo { font-size: 24px; font-weight: bold; color: #ff0000; }',
+  '        .social-top a { color: #ffffff; margin-right: 15px; text-decoration: none; font-size: 14px; transition: color 0.3s; }',
+  '        .social-top a:hover { color: #ff0000; }',
+  '        .hero-container { display: flex; min-height: 500px; align-items: center; padding: 40px 5%; background: #000000; }',
+  '        .hero-text { flex: 1; padding-left: 20px; z-index: 10; }',
+  '        .hero-text h1 { font-size: 46px; color: #ff0000; margin-bottom: 20px; line-height: 1.4; font-weight: 700; }',
+  '        .hero-text p { font-size: 18px; color: #ffffff; margin-bottom: 30px; }',
+  '        .cta-btn { background-color: #ff0000; color: #ffffff; padding: 12px 30px; border: none; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; text-decoration: none; transition: background 0.3s, transform 0.3s; display: inline-block; }',
+  '        .cta-btn:hover { background-color: #cc0000; transform: scale(1.05); }',
+  '        .hero-slider { flex: 1; position: relative; width: 100%; height: 350px; overflow: hidden; border-radius: 10px; border: 2px solid #ff0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); }',
+  '        .slides { width: 100%; height: 100%; position: relative; }',
+  '        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; align-items: center; justify-content: center; }',
+  '        .slide.active { opacity: 1; }',
+  '        .slide img { width: 100%; height: 100%; object-fit: cover; }',
+  '        .slider-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 15; }',
+  '        .dot { width: 12px; height: 12px; background-color: rgba(255,255,255,0.4); border-radius: 50%; cursor: pointer; }',
+  '        .dot.active { background-color: #ff0000; }',
+  '        .products-section { padding: 60px 5%; text-align: center; background-color: #000000; }',
+  '        .products-section h2 { font-size: 32px; margin-bottom: 40px; color: #ff0000; }',
+  '        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }',
+  '        .product-card { background-color: #0d0d0d; border: 1px solid #333333; border-radius: 8px; padding: 20px; transition: all 0.3s; }',
+  '        .product-card:hover { transform: translateY(-5px); border-color: #ff0000; box-shadow: 0 0 10px rgba(255, 0, 0, 0.3); }',
+  '        .product-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; margin-bottom: 15px; }',
+  '        .product-card h3 { font-size: 20px; margin-bottom: 10px; color: #ffffff; }',
+  '        .price-tag { color: #ff0000; font-weight: bold; margin-bottom: 15px; display: block; }',
+  '        .add-to-cart-btn { background-color: #000000; color: #ffffff; border: 1px solid #ff0000; padding: 10px 15px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; transition: all 0.3s; }',
+  '        .add-to-cart-btn:hover { background-color: #ff0000; color: #ffffff; }',
+  '        .form-section { background-color: #0d0d0d; padding: 50px 5%; margin: 40px 5%; border-radius: 10px; border: 1px solid #ff0000; }',
+  '        .form-section h2 { text-align: center; margin-bottom: 30px; color: #ff0000; }',
+  '        .cart-summary { background-color: #000000; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-right: 4px solid #ff0000; color: #ffffff; }',
+  '        .form-group { margin-bottom: 20px; }',
+  '        .form-group label { display: block; margin-bottom: 8px; color: #ffffff; }',
+  '        .form-group input, .form-group textarea { width: 100%; padding: 12px; background-color: #1a1a1a; border: 1px solid #333333; color: #ffffff; border-radius: 5px; }',
+  '        .form-group input:focus, .form-group textarea:focus { border-color: #ff0000; outline: none; }',
+  '        .submit-whatsapp-btn { background-color: #ff0000; color: #ffffff; padding: 15px; border: none; width: 100%; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; transition: background 0.3s; }',
+  '        .submit-whatsapp-btn:hover { background-color: #cc0000; }',
+  '        footer { background-color: #0d0d0d; padding: 40px 5%; text-align: center; border-top: 1px solid #ff0000; margin-top: 60px; }',
+  '        .footer-links a { color: #ffffff; text-decoration: none; margin: 0 15px; font-size: 14px; }',
+  '        .footer-links a:hover { color: #ff0000; }',
+  '        .copyright { color: #777777; font-size: 14px; margin-top: 20px; }',
+  '        @media (max-width: 768px) {',
+  '            header { flex-direction: column; gap: 10px; }',
+  '            .hero-container { flex-direction: column; text-align: center; padding: 20px 5%; }',
+  '            .hero-text { padding-left: 0; margin-bottom: 30px; }',
+  '            .hero-text h1 { font-size: 32px; }',
+  '            .hero-slider { height: 220px; }',
+  '        }',
+  '    </style>',
+  '</head>',
+  '<body>',
+  '    <header>',
+  '        <div class="logo">🏁 كينق سكيل لقطع السيارات</div>',
+  '        <div class="social-top">',
+  '            <a href="https://instagram.com" target="_blank">إنستغرام 📸</a>',
+  '            <a href="https://tiktok.com" target="_blank">تيك توك 🎵</a>',
+  '        </div>',
+  '    </header>',
+  '    <section class="hero-container">',
+  '        <div class="hero-text">',
+  '            <h1>هندسة أدق.<br>اختيار أوثق.</h1>',
+  '            <p>اكتشف أقوى قطع الغيار الترند لسيارتك. حدد طلبك، أرسله عبر الواتساب، ودعنا نتولى التوفير والشحن السريع بناءً على طلبك المسبق.</p>',
+  '            <a href="#products" class="cta-btn">استكشف الكتالوج 🚗</a>',
+  '        </div>',
+  '        <div class="hero-slider">',
+  '            <div class="slides" id="slider">',
+  '                <div class="slide active"><img src="https://unsplash.com" alt="BMW"></div>',
+  '                <div class="slide"><img src="https://unsplash.com" alt="Mercedes"></div>',
+  '                <div class="slide"><img src="https://unsplash.com" alt="Audi"></div>',
+  '            </div>',
+  '            <div class="slider-dots" id="dotsContainer">',
+  '                <div class="dot active"></div>',
+  '                <div class="dot"></div>',
+  '                <div class="dot"></div>',
+  '            </div>',
+  '        </div>',
+  '    </section>',
+  '    <section class="products-section" id="products">',
+  '        <h2>🔥 الأكثر طلباً وترند هذا الأسبوع</h2>',
+  '        <div class="products-grid">',
+  '            <div class="product-card">',
+  '                <img src="https://unsplash.com" alt="ممتص صدمات">',
+  '                <h3>ممتص صدمات رياضي (تعديل)</h3>',
+  '                <span class="price-tag">السعر: تواصل معنا لتحديد التوافق</span>',
+  '                <button class="add-to-cart-btn" onclick="addToRequest(\'ممتص صدمات رياضي\')">🔍 إضافة لطلب الاستفسار</button>',
+  '            </div>',
+  '            <div class="product-card">',
+  '                <img src="https://unsplash.com" alt="أضوية">',
+  '                <h3>أضوية أمامية فخمة LED</h3>',
+  '                <span class="price-tag">السعر: تواصل معنا لتحديد التوافق</span>',
+  '                <button class="add-to-cart-btn" onclick="addToRequest(\'أضوية أمامية فخمة LED\')">🔍 إضافة لطلب الاستفسار</button>',
+  '            </div>',
+  '            <div class="product-card">',
+  '                <img src="https://unsplash.com" alt="فلتر">',
+  '                <h3>فلتر هواء رياضي عالي الأداء</h3>',
+  '                <span class="price-tag">السعر: تواصل معنا لتحديد التوافق</span>',
+  '                <button class="add-to-cart-btn" onclick="addToRequest(\'فلتر هواء رياضي عالي الأداء\')">🔍 إضافة لطلب الاستفسار</button>',
+  '            </div>',
+  '        </div>',
+  '    </section>',
+  '    <section class="form-section">',
+  '        <h2>📋 تجهيز رسالة الاستفسار الموحدة للواتساب</h2>',
+  '        <div class="cart-summary">',
+  '            <strong>القطع المحددة للاستفسار:</strong>',
+  '            <p id="selectedPartsText">لم تقم باختيار قطع بعد.</p>',
+  '        </div>',
+  '        <form id="inquiryForm" onsubmit="sendToWhatsApp(event)">',
+  '            <div class="form-group">',
+  '                <label>اسمك الكريم:</label>',
+  '                <input type="text" id="clientName" required placeholder="مثال: أحمد محمد">',
+  '            </div>',
+  '            <div class="form-group">',
