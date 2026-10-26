@@ -11,13 +11,11 @@ app.get('/', (req, res) => {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>متجر قطع السيارات - طلب مسبق</title>
-    <!-- خطوط جوجل لتحسين المظهر -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- التعليق الافتراضي وعناصر التصميم الأساسية --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -25,12 +23,10 @@ app.get('/', (req, res) => {
             font-family: 'Cairo', sans-serif;
         }
         body {
-            background-color: #121212; /* خلفية داكنة فخمة */
+            background-color: #121212;
             color: #ffffff;
             overflow-x: hidden;
         }
-
-        /* --- الهيدر والقائمة العلوية --- */
         header {
             background-color: #1a1a1a;
             padding: 15px 5%;
@@ -54,8 +50,6 @@ app.get('/', (req, res) => {
         .social-top a:hover {
             color: #ff3333;
         }
-
-        /* --- قسم الواجهة الرئيسية (Hero Section) --- */
         .hero-container {
             display: flex;
             min-height: 500px;
@@ -80,7 +74,7 @@ app.get('/', (req, res) => {
             margin-bottom: 30px;
         }
         .cta-btn {
-            background-color: #ff3333; /* الزر الأحمر */
+            background-color: #ff3333;
             color: white;
             padding: 12px 30px;
             border: none;
@@ -95,8 +89,6 @@ app.get('/', (req, res) => {
         .cta-btn:hover {
             background-color: #cc0000;
         }
-
-        /* --- كتالوج الصور المتحرك (Carousel / Slider) --- */
         .hero-slider {
             flex: 1;
             position: relative;
@@ -129,7 +121,6 @@ app.get('/', (req, res) => {
             height: 100%;
             object-fit: cover;
         }
-        /* نقاط التحكم الدائرية للكتالوج */
         .slider-dots {
             position: absolute;
             bottom: 15px;
@@ -149,8 +140,6 @@ app.get('/', (req, res) => {
         .dot.active {
             background-color: #ff3333;
         }
-
-        /* --- قسم المنتجات الترند --- */
         .products-section {
             padding: 60px 5%;
             text-align: center;
@@ -194,7 +183,6 @@ app.get('/', (req, res) => {
             margin-bottom: 15px;
             display: block;
         }
-        /* زر السلة والطلب المسبق المطور */
         .add-to-cart-btn {
             background-color: #333;
             color: #fff;
@@ -209,8 +197,6 @@ app.get('/', (req, res) => {
         .add-to-cart-btn:hover {
             background-color: #ff3333;
         }
-
-        /* --- نموذج الاستفسار وسلة الواتساب التلقائية --- */
         .form-section {
             background-color: #1a1a1a;
             padding: 50px 5%;
@@ -251,7 +237,7 @@ app.get('/', (req, res) => {
             outline: none;
         }
         .submit-whatsapp-btn {
-            background-color: #25D366; /* لون واتساب الأخضر */
+            background-color: #25D366;
             color: white;
             padding: 15px;
             border: none;
@@ -265,8 +251,6 @@ app.get('/', (req, res) => {
         .submit-whatsapp-btn:hover {
             background-color: #20ba5a;
         }
-
-        /* --- الفوتر (Footer) والروابط --- */
         footer {
             background-color: #1a1a1a;
             padding: 40px 5%;
@@ -290,15 +274,13 @@ app.get('/', (req, res) => {
             color: #666;
             font-size: 14px;
         }
-
-        /* --- التجاوب الكامل مع الهواتف المحمولة (Responsive Design) --- */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
                 gap: 10px;
             }
             .hero-container {
-                flex-direction: column; /* الترتيب العمودي للهواتف */
+                flex-direction: column;
                 text-align: center;
                 padding: 20px 5%;
             }
@@ -310,24 +292,21 @@ app.get('/', (req, res) => {
                 font-size: 30px;
             }
             .hero-slider {
-                height: 220px; /* تصغير حجم الصور على الهاتف */
+                height: 220px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- الهيدر العلوى والربط بسوشيال ميديا -->
     <header>
         <div class="logo">🏁 كينق سكيل لقطع السيارات</div>
         <div class="social-top">
-            <!-- رابط إنستغرام وتيك توك -->
             <a href="https://instagram.com" target="_blank">إنستغرام 📸</a>
             <a href="https://tiktok.com" target="_blank">تيك توك 🎵</a>
         </div>
     </header>
 
-    <!-- قسم الواجهة الرئيسي والكتالوج المتحرك الثابت النصوص -->
     <section class="hero-container">
         <div class="hero-text">
             <h1>هندسة أدق.<br>اختيار أوثق.</h1>
@@ -335,8 +314,28 @@ app.get('/', (req, res) => {
             <a href="#products" class="cta-btn">استكشف الكتالوج 🚗</a>
         </div>
         
-        <!-- كتالوج الصور المتحرك للسيارات الفخمة -->
         <div class="hero-slider">
             <div class="slides" id="slider">
-                <!-- صورة 1: BMW -->
                 <div class="slide active">
+                    <img src="https://unsplash.com" alt="BMW 5 Series">
+                </div>
+                <div class="slide">
+                    <img src="https://unsplash.com" alt="Mercedes AMG">
+                </div>
+                <div class="slide">
+                    <img src="https://unsplash.com" alt="Audi RS">
+                </div>
+            </div>
+            <div class="slider-dots" id="dotsContainer">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section" id="products">
+        <h2>🔥 الأكثر طلباً وترند هذا الأسبوع</h2>
+        <div class="products-grid">
+            
+            <div class="product-card">
