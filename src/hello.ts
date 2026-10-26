@@ -10,12 +10,13 @@ app.get('/', (req, res) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر قطع السيارات - طلب مسبق</title>
+    <title>متجر كينق سكيل لقطع السيارات - طلب مسبق</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
+        /* --- الألوان البراند الجديدة المحددة من قبلك --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -23,39 +24,43 @@ app.get('/', (req, res) => {
             font-family: 'Cairo', sans-serif;
         }
         body {
-            background-color: #121212;
-            color: #ffffff;
+            background-color: #000000; /* خلفية سوداء بالكامل */
+            color: #ffffff; /* كتابة باللون الأبيض الأساسي */
             overflow-x: hidden;
         }
+
+        /* --- الهيدر والقائمة العلوية --- */
         header {
-            background-color: #1a1a1a;
+            background-color: #0d0d0d;
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #ff3333;
+            border-bottom: 2px solid #ff0000; /* خط أحمر ناري */
         }
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #ff3333;
+            color: #ff0000; /* اللوجو باللون الأحمر */
         }
         .social-top a {
-            color: #fff;
+            color: #ffffff; /* روابط بيضاء */
             margin-right: 15px;
             text-decoration: none;
             font-size: 14px;
             transition: color 0.3s;
         }
         .social-top a:hover {
-            color: #ff3333;
+            color: #ff0000; /* تتحول للأحمر عند تمرير الماوس */
         }
+
+        /* --- قسم الواجهة الرئيسية (Hero Section) --- */
         .hero-container {
             display: flex;
             min-height: 500px;
             align-items: center;
             padding: 40px 5%;
-            background: linear-gradient(145deg, #1a1a1a, #121212);
+            background: #000000;
         }
         .hero-text {
             flex: 1;
@@ -63,19 +68,20 @@ app.get('/', (req, res) => {
             z-index: 10;
         }
         .hero-text h1 {
-            font-size: 42px;
-            color: #ffffff;
+            font-size: 46px;
+            color: #ff0000; /* كتابة العنوان بالأحمر الناري لجذب الانتباه */
             margin-bottom: 20px;
             line-height: 1.4;
+            font-weight: 700;
         }
         .hero-text p {
             font-size: 18px;
-            color: #b3b3b3;
+            color: #ffffff; /* تفاصيل العرض باللون الأبيض البسيط */
             margin-bottom: 30px;
         }
         .cta-btn {
-            background-color: #ff3333;
-            color: white;
+            background-color: #ff0000; /* زر أحمر */
+            color: #ffffff; /* كتابة داخل الزر باللون الأبيض */
             padding: 12px 30px;
             border: none;
             border-radius: 5px;
@@ -83,12 +89,15 @@ app.get('/', (req, res) => {
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s;
             display: inline-block;
         }
         .cta-btn:hover {
             background-color: #cc0000;
+            transform: scale(1.05);
         }
+
+        /* --- كتالوج الصور المتحرك --- */
         .hero-slider {
             flex: 1;
             position: relative;
@@ -96,7 +105,8 @@ app.get('/', (req, res) => {
             height: 350px;
             overflow: hidden;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border: 2px solid #ff0000; /* إطار أحمر حول السلايدر */
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
         }
         .slides {
             width: 100%;
@@ -133,21 +143,24 @@ app.get('/', (req, res) => {
         .dot {
             width: 12px;
             height: 12px;
-            background-color: rgba(255,255,255,0.5);
+            background-color: rgba(255,255,255,0.4);
             border-radius: 50%;
             cursor: pointer;
         }
         .dot.active {
-            background-color: #ff3333;
+            background-color: #ff0000; /* النقطة النشطة باللون الأحمر */
         }
+
+        /* --- قسم المنتجات --- */
         .products-section {
             padding: 60px 5%;
             text-align: center;
+            background-color: #000000;
         }
         .products-section h2 {
             font-size: 32px;
             margin-bottom: 40px;
-            color: #ff3333;
+            color: #ff0000; /* عناوين الأقسام باللون الأحمر */
         }
         .products-grid {
             display: grid;
@@ -155,16 +168,16 @@ app.get('/', (req, res) => {
             gap: 30px;
         }
         .product-card {
-            background-color: #1a1a1a;
-            border: 1px solid #333;
+            background-color: #0d0d0d; /* كروت المنتجات سوداء داكنة منفصلة عن الخلفية */
+            border: 1px solid #333333;
             border-radius: 8px;
             padding: 20px;
-            transition: transform 0.3s;
-            position: relative;
+            transition: all 0.3s;
         }
         .product-card:hover {
             transform: translateY(-5px);
-            border-color: #ff3333;
+            border-color: #ff0000; /* يضيء الإطار بالأحمر عند اختيار الكرت */
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
         .product-card img {
             width: 100%;
@@ -176,18 +189,19 @@ app.get('/', (req, res) => {
         .product-card h3 {
             font-size: 20px;
             margin-bottom: 10px;
+            color: #ffffff; /* اسم القطعة باللون الأبيض */
         }
         .price-tag {
-            color: #ffcc00;
+            color: #ff0000; /* كلمة السعر باللون الأحمر */
             font-weight: bold;
             margin-bottom: 15px;
             display: block;
         }
         .add-to-cart-btn {
-            background-color: #333;
-            color: #fff;
-            border: 1px solid #ff3333;
-            padding: 8px 15px;
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #ff0000;
+            padding: 10px 15px;
             border-radius: 4px;
             cursor: pointer;
             width: 100%;
@@ -195,26 +209,30 @@ app.get('/', (req, res) => {
             transition: all 0.3s;
         }
         .add-to-cart-btn:hover {
-            background-color: #ff3333;
+            background-color: #ff0000;
+            color: #ffffff;
         }
+
+        /* --- نموذج استمارة الطلب المسبق --- */
         .form-section {
-            background-color: #1a1a1a;
+            background-color: #0d0d0d;
             padding: 50px 5%;
             margin: 40px 5%;
             border-radius: 10px;
-            border: 1px solid #333;
+            border: 1px solid #ff0000; /* إطار أحمر للفورم */
         }
         .form-section h2 {
             text-align: center;
             margin-bottom: 30px;
-            color: #ffffff;
+            color: #ff0000;
         }
         .cart-summary {
-            background-color: #222;
+            background-color: #000000;
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
-            border-right: 4px solid #ffcc00;
+            border-right: 4px solid #ff0000;
+            color: #ffffff;
         }
         .form-group {
             margin-bottom: 20px;
@@ -222,23 +240,23 @@ app.get('/', (req, res) => {
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #b3b3b3;
+            color: #ffffff; /* التسميات باللون الأبيض */
         }
         .form-group input, .form-group textarea {
             width: 100%;
             padding: 12px;
-            background-color: #262626;
-            border: 1px solid #444;
-            color: white;
+            background-color: #1a1a1a;
+            border: 1px solid #333333;
+            color: #ffffff; /* الكتابة داخل الحقول باللون الأبيض */
             border-radius: 5px;
         }
         .form-group input:focus, .form-group textarea:focus {
-            border-color: #ff3333;
+            border-color: #ff0000;
             outline: none;
         }
         .submit-whatsapp-btn {
-            background-color: #25D366;
-            color: white;
+            background-color: #ff0000; /* تحويل زر الواتساب للأحمر الناري ليتوافق مع رغبتك باللونين فقط */
+            color: #ffffff;
             padding: 15px;
             border: none;
             width: 100%;
@@ -249,30 +267,30 @@ app.get('/', (req, res) => {
             transition: background 0.3s;
         }
         .submit-whatsapp-btn:hover {
-            background-color: #20ba5a;
+            background-color: #cc0000;
         }
+
+        /* --- الفوتر والتحذيرات المالية --- */
         footer {
-            background-color: #1a1a1a;
+            background-color: #0d0d0d;
             padding: 40px 5%;
             text-align: center;
-            border-top: 1px solid #333;
+            border-top: 1px solid #ff0000;
             margin-top: 60px;
         }
-        .footer-links {
-            margin-bottom: 20px;
-        }
         .footer-links a {
-            color: #b3b3b3;
+            color: #ffffff;
             text-decoration: none;
             margin: 0 15px;
             font-size: 14px;
         }
         .footer-links a:hover {
-            color: #ff3333;
+            color: #ff0000;
         }
         .copyright {
-            color: #666;
+            color: #777777;
             font-size: 14px;
+            margin-top: 20px;
         }
         @media (max-width: 768px) {
             header {
@@ -289,7 +307,7 @@ app.get('/', (req, res) => {
                 margin-bottom: 30px;
             }
             .hero-text h1 {
-                font-size: 30px;
+                font-size: 32px;
             }
             .hero-slider {
                 height: 220px;
@@ -310,32 +328,3 @@ app.get('/', (req, res) => {
     <section class="hero-container">
         <div class="hero-text">
             <h1>هندسة أدق.<br>اختيار أوثق.</h1>
-            <p>اكتشف أقوى قطع الغيار الترند لسيارتك. حدد طلبك، أرسله عبر الواتساب، ودعنا نتولى التوفير والشحن السريع بناءً على طلبك المسبق.</p>
-            <a href="#products" class="cta-btn">استكشف الكتالوج 🚗</a>
-        </div>
-        
-        <div class="hero-slider">
-            <div class="slides" id="slider">
-                <div class="slide active">
-                    <img src="https://unsplash.com" alt="BMW 5 Series">
-                </div>
-                <div class="slide">
-                    <img src="https://unsplash.com" alt="Mercedes AMG">
-                </div>
-                <div class="slide">
-                    <img src="https://unsplash.com" alt="Audi RS">
-                </div>
-            </div>
-            <div class="slider-dots" id="dotsContainer">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="products-section" id="products">
-        <h2>🔥 الأكثر طلباً وترند هذا الأسبوع</h2>
-        <div class="products-grid">
-            
-            <div class="product-card">
